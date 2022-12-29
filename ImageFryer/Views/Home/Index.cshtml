@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "Image Deep Fryer";
+    string saturationInfo = "Adjust the slider to increase or decrease the saturation of the image";
+    string fryLevelInfo = "Adjust the slider to increase or decrease the amount of sharpening of the image";
+}
+
+<div class="container mt-5">
+    <div class="row mb-5">
+        <div class="col text-center">
+            <h1 class="display-3">Image Deep Fryer</h1>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-10 col-md-8 col-lg-6 col-xl-5">
+            <form id="uploadForm" asp-action="Index" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="saturation" class="form-label">Saturation <i class="bi bi-info-circle" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="@saturationInfo"></i></label>
+                    <input type="range" class="form-range" min="2" max="30" value="10" name="saturation" id="saturation">
+                </div>
+                <div class="mb-3">
+                    <label for="fryLevel" class="form-label">Fry level <i class="bi bi-info-circle" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="@fryLevelInfo"></i></label>
+                    <input type="range" class="form-range" min="2" max="30" value="10" name="fryLevel" id="fryLevel">
+                </div>
+                <p>&#x2022 Allowed image formats: .png, .jpg, .jpeg</p>
+                <div class="mb-3">
+                    <label for="file" class="form-label">Upload image</label>
+                    <input class="form-control" name="file" type="file" id="file" required>
+                </div>
+                <button type="submit" value="submit" class="btn btn-success w-100 mt-3 mb-3">Fry image</button>
+            </form>
+            @if (ViewBag.Error != null)
+            {
+                <p class="text-danger">@ViewBag.Error</p>
+            }
+        </div>
+    </div>
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">limit reached</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toast">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
+            });
+            var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+            var toastList = toastElList.map(function (toastEl) {
+                return new bootstrap.Toast(toastEl, {'animation': true, 'autohide': true})
+            });
+
+            const params = new Proxy(new URLSearchParams(window.location.search), {
+                get: (searchParams, prop) => searchParams.get(prop),
+            });
+
+            if (params.error != null) {
+                console.log("error");
+                var error = params.error.split('_');
+                console.log(error);
+                $("#toast").text("Please wait " + error[1] + " seconds before uploading an image");
+                var toast = bootstrap.Toast.getInstance(liveToast);
+                toast.show();
+            }
+
+            $('#file').on('change', function () {
+                const size = (this.files[0].size / 1024 / 1024).toFixed(2);
+                const ext = $('#file').val().split('.').pop().toLowerCase();
+
+                if (size > 2) {
+                    alert("Image size must be less than 2 MB!");
+                    $('#file').val('');
+                }
+                else if ($.inArray(ext, ['png', 'jpg', 'jpeg']) == -1) {
+                    alert("Images must be of .png, .jpg or .jpeg format!");
+                    $('#file').val('');
+                }
+            });
+        });
+    </script>
+}
