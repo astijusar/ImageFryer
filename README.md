@@ -15,8 +15,21 @@ Restrictions:
 
 Example result:
 
-Original image
-![unfried](https://user-images.githubusercontent.com/60033715/213551577-c5a0e3e8-bac6-4ca0-b83f-d7fda26f004a.jpg)
+<div>
+  <div>
+    Original image
+  </div>
+  <div>
+    <img src="https://user-images.githubusercontent.com/60033715/213551577-c5a0e3e8-bac6-4ca0-b83f-d7fda26f004a.jpg" >
+    <p></p>
+  </div>
+</div>
 
-Fryed image
-![fried](https://user-images.githubusercontent.com/60033715/213551591-8eead9da-c106-4906-bc5a-a04371e1134b.jpg)
+<div>
+  <div>
+    Fryed image
+  </div>
+  <div>
+    <img src="https://user-images.githubusercontent.com/60033715/213551591-8eead9da-c106-4906-bc5a-a04371e1134b.jpg" >
+  </div>
+</div>
