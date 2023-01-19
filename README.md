@@ -2,6 +2,8 @@
 
 A simple website used to "deep fry" images.
 
+[Website link](https://imagefryer.azurewebsites.net/)
+
 [Deep fried memes](https://knowyourmeme.com/memes/deep-fried-memes "Deep fried memes") are a style of meme where an image is run through dozens of filters to the point where the image appears grainy, washed-out, and strangely colored.
 
 In this website the deep frying process is simplified by only using 2 filters:
@@ -32,4 +34,5 @@ Example result:
   <div>
     <img src="https://user-images.githubusercontent.com/60033715/213551591-8eead9da-c106-4906-bc5a-a04371e1134b.jpg" >
   </div>
+  <p></p>
 </div>
