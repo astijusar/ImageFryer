@@ -29,7 +29,7 @@ Example result:
 
 <div>
   <div>
-    Fryed image
+    Fried image
   </div>
   <div>
     <img src="https://user-images.githubusercontent.com/60033715/213551591-8eead9da-c106-4906-bc5a-a04371e1134b.jpg" >
